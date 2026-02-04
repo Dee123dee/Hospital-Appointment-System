@@ -1,3 +1,4 @@
+import { createAppointment } from "../services/appointmentService";
 import { useState } from "react";
 
 const AppointmentForm = () => {
@@ -19,10 +20,34 @@ const AppointmentForm = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData); // for now
-  };
+  const handleSubmit = async(e: React.FormEvent) => {
+  e.preventDefault();
+   try {
+    await createAppointment({
+      patientName: formData.patientName,
+      email: formData.email,
+      phone: formData.phone,
+      doctor: formData.doctor,
+      appointmentDate: formData.appointmentDate,
+      reason: formData.reason,
+    });
+
+    alert("Appointment booked successfully ✅");
+
+    // reset form
+    setFormData({
+      patientName: "",
+      email: "",
+      phone: "",
+      doctor: "",
+      appointmentDate: "",
+      reason: "",
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Failed to book appointment ❌");
+  }
+};
 
   return (
     <form onSubmit={handleSubmit}>

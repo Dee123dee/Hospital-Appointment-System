@@ -1,11 +1,15 @@
-import AppointmentForm from "./components/AppointmentForm";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AdminAppointments from "./pages/AdminAppointments";
+import AppointmentForm from "./components/AppointmentForm"; // your old page
 
 function App() {
   return (
-    <div>
-      <h1>Hospital Appointment System</h1>
-      <AppointmentForm />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppointmentForm />} />
+        <Route path="/admin" element={<AdminAppointments />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
