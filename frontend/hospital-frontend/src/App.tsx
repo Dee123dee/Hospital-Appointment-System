@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppointmentForm from "./components/AppointmentForm";
 import AdminAppointments from "./pages/AdminAppointments";
-import AppointmentForm from "./components/AppointmentForm"; // your old page
 
 function App() {
   return (
