@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f7f9fc;
+}
+
+/* HERO */
+.hero {
+  height: 70vh;
+  background: linear-gradient(
+      rgba(15, 76, 117, 0.85),
+      rgba(15, 76, 117, 0.85)
+    ),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-overlay h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero-overlay p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.hero-hours {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 16px;
+}
+
+/* SECTIONS */
+section {
+  padding: 70px 20px;
+}
+
+/* ABOUT */
+.about-card {
+  max-width: 1100px;
+  margin: auto;
+  background: white;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.about-card h2 {
+  color: #0f4c75;
+  margin-bottom: 20px;
+}
+
+.about-card p {
+  line-height: 1.7;
+  font-size: 16px;
+  color: #444;
+}
+
+/* SERVICES */
+h2 {
+  text-align: center;
+  color: #0f4c75;
+  margin-bottom: 40px;
+}
+
+.disease-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.disease-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.disease-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.disease-card h4 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.view-btn {
+  text-decoration: none;
+  background: #0f4c75;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.view-btn:hover {
+  background: #3282b8;
+}
+
+/* DOCTOR */
+.doctor-card {
+  background: #0f4c75;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.doctor-card h2 {
+  color: white;
+}
+
+.doctor-card p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* CONTACT */
+.contact-card {
+  background: #021c2d;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  font-size: 16px;
+}

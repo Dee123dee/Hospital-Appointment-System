@@ -1,7 +1,11 @@
-import { useState, ChangeEvent, FormEvent } from "react";
 import { createAppointment } from "../services/appointmentService";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import "../styles/form.css";
 
 const AppointmentForm = () => {
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     patientName: "",
     email: "",
@@ -11,8 +15,21 @@ const AppointmentForm = () => {
     reason: "",
   });
 
+  // ✅ Auto-fill from Disease page
+  useEffect(() => {
+    if (location.state) {
+      setFormData(prev => ({
+        ...prev,
+        doctor: location.state.doctor || "",
+        reason: location.state.reason || "",
+      }));
+    }
+  }, [location.state]);
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData({
       ...formData,
@@ -20,8 +37,17 @@ const AppointmentForm = () => {
     });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+if (formData.phone.length !== 10) {
+  alert("Phone number must be 10 digits");
+  return;
+}
+
+if (new Date(formData.appointmentDate) < new Date()) {
+  alert("Appointment date must be in the future");
+  return;
+}
     try {
       await createAppointment(formData);
       alert("Appointment booked successfully ✅");
@@ -41,22 +67,63 @@ const AppointmentForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
       <h2>Book an Appointment</h2>
 
-      <input name="patientName" value={formData.patientName} onChange={handleChange} placeholder="Patient Name" required />
-      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-      <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" required />
+      <input
+        name="patientName"
+        placeholder="Patient Name"
+        value={formData.patientName}
+        onChange={handleChange}
+        required
+      />
 
-      <select name="doctor" value={formData.doctor} onChange={handleChange} required>
+      <input
+        name="email"
+        type="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+
+      <input
+        name="phone"
+        placeholder="Phone"
+        value={formData.phone}
+        onChange={handleChange}
+        required
+      />
+
+      <select
+        name="doctor"
+        value={formData.doctor}
+        onChange={handleChange}
+        disabled={!!location.state?.doctor}
+        required
+      >
         <option value="">Select Doctor</option>
         <option value="Dr. Kumar">Dr. Kumar</option>
         <option value="Dr. Priya">Dr. Priya</option>
         <option value="Dr. John">Dr. John</option>
       </select>
 
-      <input type="datetime-local" name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} required />
-      <textarea name="reason" value={formData.reason} onChange={handleChange} placeholder="Reason" required />
+      <input
+        type="datetime-local"
+        name="appointmentDate"
+        value={formData.appointmentDate}
+        onChange={handleChange}
+        required
+      />
+
+      <textarea
+        name="reason"
+        placeholder="Reason for visit"
+        value={formData.reason}
+        onChange={handleChange}
+        readOnly={!!location.state?.reason}
+        required
+      />
 
       <button type="submit">Submit</button>
     </form>

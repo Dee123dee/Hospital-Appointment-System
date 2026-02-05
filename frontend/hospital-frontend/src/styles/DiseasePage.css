@@ -1,0 +1,66 @@
+.disease-page {
+  background: #f7f9fc;
+  padding: 60px 20px;
+}
+
+.disease-container {
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.disease-container h1 {
+  color: #0f4c75;
+  margin-bottom: 15px;
+}
+
+.disease-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  color: #444;
+}
+
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.info-section h3 {
+  color: #0f4c75;
+  margin-bottom: 10px;
+}
+
+.info-section ul {
+  padding-left: 20px;
+}
+
+.info-section li {
+  margin-bottom: 8px;
+}
+
+.doctor-box {
+  background: #eef6fb;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.book-btn {
+  background: #0f4c75;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.book-btn:hover {
+  background: #3282b8;
+}
