@@ -6,6 +6,8 @@ import "../styles/form.css";
 const AppointmentForm = () => {
   const location = useLocation();
 
+  const isFromDiseasePage = Boolean(location.state?.reason);
+
   const [formData, setFormData] = useState({
     patientName: "",
     email: "",
@@ -15,13 +17,13 @@ const AppointmentForm = () => {
     reason: "",
   });
 
-  // ✅ Auto-fill from Disease page
+  /* ===== Auto-fill ONLY if coming from Disease page ===== */
   useEffect(() => {
     if (location.state) {
       setFormData(prev => ({
         ...prev,
-        doctor: location.state.doctor || "",
-        reason: location.state.reason || "",
+        doctor: location.state?.doctor ?? "",
+        reason: location.state?.reason ?? "",
       }));
     }
   }, [location.state]);
@@ -31,23 +33,25 @@ const AppointmentForm = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-if (formData.phone.length !== 10) {
-  alert("Phone number must be 10 digits");
-  return;
-}
 
-if (new Date(formData.appointmentDate) < new Date()) {
-  alert("Appointment date must be in the future");
-  return;
-}
+    if (formData.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (new Date(formData.appointmentDate) <= new Date()) {
+      alert("Appointment date must be in the future");
+      return;
+    }
+
     try {
       await createAppointment(formData);
       alert("Appointment booked successfully ✅");
@@ -67,66 +71,91 @@ if (new Date(formData.appointmentDate) < new Date()) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
-      <h2>Book an Appointment</h2>
+    <div className="form-page">
+      <form className="appointment-form" onSubmit={handleSubmit}>
+        <h2>Book an Appointment</h2>
 
-      <input
-        name="patientName"
-        placeholder="Patient Name"
-        value={formData.patientName}
-        onChange={handleChange}
-        required
-      />
+        <div className="form-group">
+          <label>Patient Name</label>
+          <input
+            name="patientName"
+            value={formData.patientName}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <input
-        name="phone"
-        placeholder="Phone"
-        value={formData.phone}
-        onChange={handleChange}
-        required
-      />
+        <div className="form-group">
+          <label>Phone</label>
+          <input
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            maxLength={10}
+            pattern="[0-9]{10}"
+            required
+          />
+        </div>
 
-      <select
-        name="doctor"
-        value={formData.doctor}
-        onChange={handleChange}
-        disabled={!!location.state?.doctor}
-        required
-      >
-        <option value="">Select Doctor</option>
-        <option value="Dr. Kumar">Dr. Kumar</option>
-        <option value="Dr. Priya">Dr. Priya</option>
-        <option value="Dr. John">Dr. John</option>
-      </select>
+        <div className="form-group">
+          <label>Doctor</label>
+          <select
+            name="doctor"
+            value={formData.doctor}
+            onChange={handleChange}
+            disabled={isFromDiseasePage}
+            required
+          >
+            <option value="">Select Doctor</option>
+            <option value="Dr. Kumar">Dr. Kumar</option>
+            <option value="Dr. Priya">Dr. Priya</option>
+            <option value="Dr. John">Dr. John</option>
+          </select>
+        </div>
 
-      <input
-        type="datetime-local"
-        name="appointmentDate"
-        value={formData.appointmentDate}
-        onChange={handleChange}
-        required
-      />
+        <div className="form-group">
+          <label>Appointment Date</label>
+          <input
+            type="datetime-local"
+            name="appointmentDate"
+            value={formData.appointmentDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <textarea
-        name="reason"
-        placeholder="Reason for visit"
-        value={formData.reason}
-        onChange={handleChange}
-        readOnly={!!location.state?.reason}
-        required
-      />
+        <div className="form-group">
+          <label>Reason</label>
+          <textarea
+            name="reason"
+            value={formData.reason}
+            onChange={handleChange}
+            readOnly={isFromDiseasePage}
+            placeholder={
+              isFromDiseasePage
+                ? "Auto-filled from selected disease"
+                : "Enter reason for appointment"
+            }
+            required
+          />
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit" className="submit-btn">
+          Confirm Appointment
+        </button>
+      </form>
+    </div>
   );
 };
 

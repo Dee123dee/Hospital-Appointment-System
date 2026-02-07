@@ -1,66 +1,78 @@
 .disease-page {
   background: #f7f9fc;
-  padding: 60px 20px;
+  min-height: 100vh;
 }
 
-.disease-container {
-  max-width: 1000px;
-  margin: auto;
-  background: white;
-  padding: 50px;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+.disease-hero {
+  background: linear-gradient(
+    rgba(15, 76, 117, 0.9),
+    rgba(15, 76, 117, 0.9)
+  ),
+  url("https://images.unsplash.com/photo-1580281657521-73a6a39c7a7e");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
 }
 
-.disease-container h1 {
+.disease-hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.disease-hero p {
+  font-size: 16px;
+}
+
+.disease-content {
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.disease-info h2 {
   color: #0f4c75;
   margin-bottom: 15px;
 }
 
-.disease-desc {
-  font-size: 16px;
+.disease-info p {
   line-height: 1.7;
-  margin-bottom: 40px;
   color: #444;
-}
-
-.info-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.info-section h3 {
-  color: #0f4c75;
-  margin-bottom: 10px;
-}
-
-.info-section ul {
-  padding-left: 20px;
-}
-
-.info-section li {
-  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .doctor-box {
-  background: #eef6fb;
-  padding: 25px;
-  border-radius: 10px;
-  margin-bottom: 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-.book-btn {
+.doctor-box h3 {
+  color: #0f4c75;
+  margin-bottom: 15px;
+}
+
+.doctor-box p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.doctor-box button {
   background: #0f4c75;
   color: white;
   border: none;
-  padding: 14px 30px;
-  font-size: 16px;
+  padding: 12px 22px;
   border-radius: 8px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-.book-btn:hover {
+.doctor-box button:hover {
   background: #3282b8;
 }
