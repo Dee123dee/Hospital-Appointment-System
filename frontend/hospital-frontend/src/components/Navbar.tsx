@@ -12,6 +12,8 @@ function Navbar() {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/disease">Services</Link></li>
         <li><Link to="/appointment">Book Appointment</Link></li>
+        <li><Link to="/my-appointments">My Appointments</Link></li>
+        <li><Link to="/doctor-dashboard">Doctor Portal</Link></li>
         <li><Link to="/admin">Admin</Link></li>
       </ul>
     </nav>

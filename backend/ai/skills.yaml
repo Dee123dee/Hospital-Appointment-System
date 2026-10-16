@@ -1,0 +1,50 @@
+project:
+  name: "V.R. Hospital Appointment Management System"
+
+backend:
+  language: "Java"
+  framework: "Spring Boot"
+  database: "MongoDB"
+  build_tool: "Maven"
+  api: "REST API"
+
+architecture:
+  pattern: "Layered Architecture"
+  flow: "Controller -> Service -> Repository -> MongoDB"
+
+layers:
+  controller:
+    responsibility:
+      - "Handle REST API requests"
+      - "Receive request data"
+      - "Call service methods"
+      - "Return responses"
+
+  service:
+    responsibility:
+      - "Handle business logic"
+      - "Validate appointment rules"
+      - "Process appointment operations"
+      - "Call repository methods"
+
+  repository:
+    responsibility:
+      - "Handle MongoDB database operations"
+
+model:
+  name: "Appointment"
+  fields:
+    - "id"
+    - "patientName"
+    - "email"
+    - "phone"
+    - "doctor"
+    - "appointmentDate"
+    - "reason"
+
+rules:
+  - "Preserve existing API endpoints"
+  - "Preserve existing database fields"
+  - "Do not break existing functionality"
+  - "Do not modify frontend"
+  - "Do not add unnecessary dependencies"

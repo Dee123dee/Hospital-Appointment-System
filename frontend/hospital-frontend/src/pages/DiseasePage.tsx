@@ -39,7 +39,7 @@ function DiseasePage() {
         <div className="doctor-box">
           <h3>Consulting Doctor</h3>
           <p>
-            <strong>Dr. T. Vijayakumar</strong><br />
+            <strong>Dr. T. Vijayaragavan</strong><br />
             M.B.B.S., M.S.<br />
             General Surgeon
           </p>

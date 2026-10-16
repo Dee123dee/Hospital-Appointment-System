@@ -67,6 +67,118 @@
   cursor: pointer;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background: #3282b8;
+}
+
+.submit-btn:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ===== 2-Step Slot Picker Styling ===== */
+.slot-loading {
+  font-size: 13px;
+  color: #4a5568;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.slot-warning {
+  font-size: 13px;
+  color: #c53030;
+  background: #fff5f5;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #feb2b2;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.slot-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.slot-pill .slot-time {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.slot-pill .slot-status {
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 3px;
+  text-transform: capitalize;
+}
+
+/* Available Slot */
+.slot-pill.available {
+  border-color: #38a169;
+  background: #f0fff4;
+  color: #22543d;
+}
+
+.slot-pill.available:hover {
+  background: #c6f6d5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(56, 161, 105, 0.2);
+}
+
+/* Selected Slot */
+.slot-pill.selected {
+  border-color: #2b6cb0;
+  background: #ebf8ff;
+  color: #2b6cb0;
+  font-weight: bold;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.35);
+}
+
+/* Unavailable / Booked Slot */
+.slot-pill.unavailable {
+  border-color: #e2e8f0;
+  background: #edf2f7;
+  color: #a0aec0;
+  cursor: not-allowed;
+  opacity: 0.65;
+  text-decoration: line-through;
+}
+
+.slot-pill.unavailable .slot-status {
+  text-decoration: none;
+  color: #e53e3e;
+  font-weight: 700;
+}
+
+.slot-confirmed-note {
+  font-size: 13px;
+  color: #2b6cb0;
+  background: #ebf8ff;
+  padding: 9px 14px;
+  border-radius: 6px;
+  margin-top: 12px;
+  border-left: 4px solid #3182ce;
 }

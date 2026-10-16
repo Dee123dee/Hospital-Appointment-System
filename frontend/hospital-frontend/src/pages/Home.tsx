@@ -64,7 +64,7 @@ function Home() {
       <section className="doctor-card">
         <h2>Our Doctor</h2>
         <p>
-          <strong>Dr. T. Vijayakumar</strong> <br />
+          <strong>Dr. T. Vijayaragavan</strong> <br />
           M.B.B.S., M.S. <br />
           General Surgeon
         </p>

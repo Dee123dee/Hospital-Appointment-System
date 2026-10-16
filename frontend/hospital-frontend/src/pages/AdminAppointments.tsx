@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllAppointments } from "../services/appointmentService";
+import { getAllAppointments, updateAppointmentStatus } from "../services/appointmentService";
 import type { Appointment } from "../services/appointmentService";
 import "../styles/admin.css";
 
@@ -8,17 +8,30 @@ function AdminAppointments() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
+  const loadAppointments = () => {
     getAllAppointments()
       .then(data => {
-        console.log("API DATA:", data);
         setAppointments(data || []);
       })
       .catch(err => {
         console.error("API Error:", err);
         setAppointments([]);
       });
+  };
+
+  useEffect(() => {
+    loadAppointments();
   }, []);
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    try {
+      await updateAppointmentStatus(id, newStatus);
+      loadAppointments();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update appointment status");
+    }
+  };
 
   /* ===== Dashboard Calculations ===== */
   const totalAppointments = appointments.length;
@@ -128,6 +141,8 @@ function AdminAppointments() {
                 <th>Date & Time</th>
                 <th>Reason</th>
                 <th>Contact</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -137,7 +152,7 @@ function AdminAppointments() {
                   <td>
                     <strong>{a.patientName || "N/A"}</strong>
                     <br />
-                    <small>{a.email || "-"}</small>
+                    <small style={{ color: "#718096" }}>{a.bookingReference || a.id}</small>
                   </td>
                   <td>{a.doctor || "-"}</td>
                   <td>
@@ -146,7 +161,60 @@ function AdminAppointments() {
                       : "-"}
                   </td>
                   <td>{a.reason || "-"}</td>
-                  <td>{a.phone || "-"}</td>
+                  <td>
+                    <div>📞 {a.phone || "-"}</div>
+                    <div><small>✉️ {a.email || "-"}</small></div>
+                  </td>
+                  <td>
+                    <span
+                      className={`doctor-badge ${
+                        (a.status || "CONFIRMED") === "CONFIRMED"
+                          ? "badge-active"
+                          : (a.status === "COMPLETED" ? "" : "badge-inactive")
+                      }`}
+                      style={
+                        a.status === "COMPLETED"
+                          ? { backgroundColor: "#bee3f8", color: "#2b6cb0" }
+                          : {}
+                      }
+                    >
+                      {a.status || "CONFIRMED"}
+                    </span>
+                  </td>
+                  <td>
+                    {(a.status || "CONFIRMED") === "CONFIRMED" && (
+                      <div style={{ display: "flex", gap: "6px" }}>
+                        <button
+                          onClick={() => handleStatusChange(a.id!, "COMPLETED")}
+                          style={{
+                            backgroundColor: "#3182ce",
+                            color: "white",
+                            border: "none",
+                            padding: "4px 8px",
+                            borderRadius: "4px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Complete
+                        </button>
+                        <button
+                          onClick={() => handleStatusChange(a.id!, "CANCELLED")}
+                          style={{
+                            backgroundColor: "#e53e3e",
+                            color: "white",
+                            border: "none",
+                            padding: "4px 8px",
+                            borderRadius: "4px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
